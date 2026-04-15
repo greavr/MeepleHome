@@ -1,10 +1,1 @@
-{
-  "projectId": "private-art",
-  "appId": "1:646670103968:web:cb7599a8cc87f004bfe0c5",
-  "apiKey": "AIzaSyB2mGcnRjAg6s5m_O4wQSzIh6LD1AgQvLA",
-  "authDomain": "private-art.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-7cdad4d1-9c99-461a-af7f-597707864cb7",
-  "storageBucket": "private-art.firebasestorage.app",
-  "messagingSenderId": "646670103968",
-  "measurementId": ""
-}
+{}
