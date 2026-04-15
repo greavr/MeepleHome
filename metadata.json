@@ -1,0 +1,6 @@
+{
+  "name": "Meeple Home",
+  "description": "The ultimate board game HQ for your household. Track your BGG collection, schedule game nights with real-time voting, record scores, and get rules help from MeepleBot.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

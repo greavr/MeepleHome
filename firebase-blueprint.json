@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "email": { "type": "string" },
+        "homeId": { "type": "string", "description": "ID of the home the user belongs to (deprecated)" },
+        "homeIds": { "type": "array", "items": { "type": "string" }, "description": "List of home IDs the user belongs to" },
+        "activeHomeId": { "type": "string", "description": "Currently active home ID" },
+        "favoriteGames": { "type": "array", "items": { "type": "string" } },
+        "wishlist": { "type": "array", "items": { "type": "string" } },
+        "bggUsername": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Home": {
+      "title": "Home",
+      "description": "A shared home for board game enthusiasts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "members": { "type": "array", "items": { "type": "string" }, "description": "List of user UIDs" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "members", "ownerId"]
+    },
+    "Game": {
+      "title": "Game",
+      "description": "A board game in the collection",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "homeId": { "type": "string" },
+        "name": { "type": "string" },
+        "bggId": { "type": "string" },
+        "minPlayers": { "type": "number" },
+        "maxPlayers": { "type": "number" },
+        "playingTime": { "type": "number" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "rating": { "type": "number" },
+        "categories": { "type": "array", "items": { "type": "string" } },
+        "themes": { "type": "array", "items": { "type": "string" } },
+        "publisher": { "type": "string" },
+        "publisherUrl": { "type": "string" },
+        "links": {
+          "type": "object",
+          "properties": {
+            "howToPlay": { "type": "string" },
+            "review": { "type": "string" },
+            "setup": { "type": "string" },
+            "rules": { "type": "string" }
+          }
+        },
+        "addedBy": { "type": "string" },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["homeId", "name"]
+    },
+    "GameNight": {
+      "title": "Game Night",
+      "description": "A scheduled board game night",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "homeId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["planned", "voting", "active", "completed"] },
+        "votes": { "type": "object", "description": "Map of gameId to array of user UIDs" },
+        "selectedGameId": { "type": "string" },
+        "scores": { "type": "array", "items": { "type": "object" } },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["homeId", "date", "status"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User review for a game",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "gameId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["gameId", "userId", "rating"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": { "schema": "User", "description": "User profiles" },
+    "/homes/{homeId}": { "schema": "Home", "description": "Home groups" },
+    "/homes/{homeId}/games/{gameId}": { "schema": "Game", "description": "Games in a home collection" },
+    "/homes/{homeId}/gameNights/{nightId}": { "schema": "GameNight", "description": "Game nights for a home" },
+    "/reviews/{reviewId}": { "schema": "Review", "description": "Global game reviews" }
+  }
+}
